@@ -16,27 +16,33 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/add/{productId}/{quantity}")
+    //Add Product In Cart
+    @PostMapping("/add/{cartId}/{productId}/{quantity}")
     public ResponseEntity<Boolean> addProductInCart(
+            @PathVariable int cartId,
             @PathVariable int productId,
             @PathVariable int quantity
     ){
-        boolean addProduct = cartService.addProductIntoCart(productId, quantity);
+        boolean addProduct = cartService.addProductIntoCart(cartId,productId, quantity);
         return new ResponseEntity<>(addProduct, HttpStatus.CREATED);
     }
 
+
+    //Remove Product From Cart
     @DeleteMapping("/remove/{cartId}/{productId}")
     public ResponseEntity<Boolean> removeProductFromCart(@PathVariable int cartId,@PathVariable int productId){
         boolean b = cartService.removeProductFromCart(cartId, productId);
         return new ResponseEntity<>(b,HttpStatus.OK);
     }
 
+    //View All Product
     @GetMapping("/view/{cartId}")
     public ResponseEntity<List<Product>> viewAllProduct(@PathVariable int cartId){
         List<Product> products = cartService.viewAllProducts(cartId);
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
+    //Calculate the Final Price
     @GetMapping("/price/{cartId}")
     public ResponseEntity<Double> showPrice(@PathVariable int cartId){
         double finalAmount = cartService.priceWithDiscount(cartId);

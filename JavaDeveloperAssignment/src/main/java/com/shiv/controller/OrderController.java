@@ -17,25 +17,24 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    // Place Order
     @PostMapping("/place/{cardId}")
-    public ResponseEntity<Order> placeOrder(@PathVariable int cartId){
+    public ResponseEntity<Order> placeOrder(@PathVariable int cartId) {
         Order order = orderService.placeOrder(cartId);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
-
-
+    // View Order Details
     @GetMapping("/view/{orderId}")
-    public ResponseEntity<Map<String, Object>> viewOrderDetails(@PathVariable int orderId){
+    public ResponseEntity<Map<String, Object>> viewOrderDetails(@PathVariable int orderId) {
         Map<String, Object> map = orderService.viewOrderDetails(orderId);
-        return new ResponseEntity<>(map,HttpStatus.OK);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-
-
+    // Update Order Status
     @PutMapping("/status/{orderId}/{status}")
-    public ResponseEntity<Void> updateOrderStatus(@PathVariable int orderId, @PathVariable OrderStatus status){
-        orderService.updateOrderStatus(orderId,status);
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable int orderId, @PathVariable OrderStatus status) {
+        orderService.updateOrderStatus(orderId, status);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
