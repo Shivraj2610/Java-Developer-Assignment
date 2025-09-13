@@ -15,8 +15,22 @@ And check following features by using there url I give Url and Feature name bell
 	Features Name			URL 								HTTP Method
 
 	1. Add Product 			http://localhost:8080/product/add				POST
+	E.X	JSON =>{
+			 "name": "Realme 6",
+			"price": 14000,
+			"stockQuantity":20
+			}
+
+
 	
 	2. Update Product		http://localhost:8080/update/{productId}			PUT
+	E.X	JSON =>{
+			 "name": "Realme 6",
+			"price": 14000,
+			"stockQuantity":20
+			}
+
+
 
 	3. Get Product by Id		http://localhost:8080/{productId}				GET
 
