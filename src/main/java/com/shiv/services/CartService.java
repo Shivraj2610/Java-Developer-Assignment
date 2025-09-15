@@ -30,11 +30,15 @@ public class CartService {
         }
 
         try {
-            // Get the Cart using Id
-            Cart cart = new Cart(cartId);
-            if (cart == null) {
-                cart = new Cart(++id);
+            Cart cart;
+            if(cartStorage.isEmpty()){
+                System.out.println("Cart Created");
+                cart = new Cart(cartId);
+                cartStorage.put(cartId,cart);
+            }else{
+                cart = getCartById(cartId);
             }
+
 
             // Get product from ProductService
             Product product = productService.getProductProductById(productId);
@@ -136,7 +140,7 @@ public class CartService {
     public Cart getCartById(int cartId) {
         Cart cart = cartStorage.get(cartId);
         if (cart == null) {
-            throw new RuntimeException("Cart not found with ID: " + cartId);
+            return null;
         }
         return cart;
     }
